@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Mic, MapPin, X, CheckCircle, Users, ArrowLeft, UserPlus } from "lucide-react";
 import { supabase } from "./supabase";
 
