@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Mic, MapPin, X, CheckCircle, Users, ArrowLeft, UserPlus } from "lucide-react";
+import { Mic, MapPin, CheckCircle, Users, ArrowLeft, UserPlus } from "lucide-react";
 import { supabase } from "./supabase";
 
 const LANDMARKS = [
@@ -337,99 +337,99 @@ export default function App() {
           <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg mx-auto bg-snow-white rounded-3xl-2 shadow-xl animate-[fadeInUp_0.35s_ease_forwards] max-h-[90vh] flex flex-col overflow-hidden py-6 sm:py-8 pr-2">
             <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden pl-7 sm:pl-9 pr-2 sm:pr-4 [scrollbar-gutter:stable]">
               {match ? (
-              <div className="flex flex-col items-center mb-8 mt-2">
-                <div className="flex items-center gap-2 bg-canvas-ice rounded-full px-4 py-2 mb-6">
-                  <CheckCircle size={16} className="text-plasma-violet" />
-                  <span className="text-plasma-violet text-caption font-bold uppercase tracking-widest">Someone Nearby!</span>
-                </div>
-
-                <div className="relative mb-4">
-                  <div className="w-96 h-96 rounded-full-2 bg-plasma-violet flex items-center justify-center shadow-xl">
-                    <span className="text-snow-white text-heading font-bold tracking-tight">{match.avatar_initials || "AM"}</span>
+                <div className="flex flex-col items-center mb-8 mt-2">
+                  <div className="flex items-center gap-2 bg-canvas-ice rounded-full px-4 py-2 mb-6">
+                    <CheckCircle size={16} className="text-plasma-violet" />
+                    <span className="text-plasma-violet text-caption font-bold uppercase tracking-widest">Someone Nearby!</span>
                   </div>
-                  <span className="absolute -bottom-1 -right-1 w-24 h-24 bg-canvas-ice border-[3px] border-snow-white rounded-full-2 flex items-center justify-center">
-                    <div className="w-[10px] h-[10px] bg-plasma-violet rounded-full-2 animate-pulse" />
-                  </span>
-                </div>
 
-                <h2 className="text-midnight-ink text-heading font-bold mb-1">{match.name}</h2>
-                <p className="text-pale-stone text-body font-medium">{match.major_year}</p>
-                <div className="flex items-center gap-1.5 mt-3 text-plasma-violet">
-                  <MapPin size={14} />
-                  <span className="text-caption font-semibold">~40 ft away · Same floor</span>
-                </div>
+                  <div className="relative mb-4">
+                    <div className="w-96 h-96 rounded-full-2 bg-plasma-violet flex items-center justify-center shadow-xl">
+                      <span className="text-snow-white text-heading font-bold tracking-tight">{match.avatar_initials || "AM"}</span>
+                    </div>
+                    <span className="absolute -bottom-1 -right-1 w-24 h-24 bg-canvas-ice border-[3px] border-snow-white rounded-full-2 flex items-center justify-center">
+                      <div className="w-[10px] h-[10px] bg-plasma-violet rounded-full-2 animate-pulse" />
+                    </span>
+                  </div>
 
-                <div className="bg-canvas-ice rounded-2xl p-5 mb-6 mt-8 w-full">
-                  <p className="text-pale-stone text-caption font-bold uppercase tracking-widest mb-4 text-center">Also Looking For</p>
-                  <div className="flex flex-wrap justify-center gap-2">
-                    {(Array.isArray(match.keywords) ? match.keywords : typeof match.keywords === "string" ? match.keywords.replace(/[{}]/g, "").split(",") : []).map((tag: string) => (
-                      <span key={tag} className="bg-soft-lavender/50 text-plasma-violet text-caption font-semibold rounded-full-2 px-4 py-1.5">
-                        {tag}
-                      </span>
+                  <h2 className="text-midnight-ink text-heading font-bold mb-1">{match.name}</h2>
+                  <p className="text-pale-stone text-body font-medium">{match.major_year}</p>
+                  <div className="flex items-center gap-1.5 mt-3 text-plasma-violet">
+                    <MapPin size={14} />
+                    <span className="text-caption font-semibold">~40 ft away · Same floor</span>
+                  </div>
+
+                  <div className="bg-canvas-ice rounded-2xl p-5 mb-6 mt-8 w-full">
+                    <p className="text-pale-stone text-caption font-bold uppercase tracking-widest mb-4 text-center">Also Looking For</p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {(Array.isArray(match.keywords) ? match.keywords : typeof match.keywords === "string" ? match.keywords.replace(/[{}]/g, "").split(",") : []).map((tag: string) => (
+                        <span key={tag} className="bg-soft-lavender/50 text-plasma-violet text-caption font-semibold rounded-full-2 px-4 py-1.5">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-canvas-ice/50 rounded-2xl px-5 py-4 mb-8 w-full text-center">
+                    <p className="text-midnight-ink text-body leading-relaxed">
+                      <span className="font-bold">{match.name}</span> is also at{" "}
+                      <span className="font-bold">{landmark}</span>: "{match.status_prompt}"
+                    </p>
+                  </div>
+
+                  <button className="w-full bg-plasma-violet hover:opacity-90 text-snow-white rounded-full-2 py-4 font-bold text-body flex items-center justify-center gap-2.5 transition-all duration-200 shadow-xl active:scale-[0.98] focus:outline-none mb-4">
+                    <UserPlus size={20} />
+                    Connect with {match.name.split(" ")[0]}
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center mb-10 mt-4">
+                  <div className="w-12 h-12 rounded-full bg-canvas-ice flex items-center justify-center mb-5">
+                    <Users size={22} className="text-midnight-ink/60" />
+                  </div>
+                  <h2 className="text-midnight-ink text-[36px] font-bold mb-2 text-center tracking-tight leading-none">No exact matches</h2>
+                  <p className="text-pale-stone text-[15px] text-center">No exact matches at this moment for your prompt.</p>
+                </div>
+              )}
+
+              {/* Others Available Nearby */}
+              {fetchedStudents.filter(s => !match || s.id !== match.id).length > 0 && (
+                <div className="w-full">
+                  <div className="w-full h-px bg-canvas-ice mb-6"></div>
+                  <div className="flex items-center justify-center gap-3 mb-6">
+                    <div className="w-1.5 h-1.5 rounded-full bg-soft-lavender/60"></div>
+                    <h3 className="text-midnight-ink text-[11px] font-bold uppercase tracking-[0.15em] text-center">Others Available Nearby</h3>
+                    <div className="w-1.5 h-1.5 rounded-full bg-soft-lavender/60"></div>
+                  </div>
+                  <div className="flex flex-col gap-4 pb-2">
+                    {fetchedStudents.filter(s => !match || s.id !== match.id).map(student => (
+                      <div key={student.id} className="bg-[#fcfbfe] border border-soft-lavender/30 rounded-[28px] p-6 flex flex-col items-center text-center shadow-[0_2px_12px_-4px_rgba(69,65,254,0.08)]">
+                        <div className="w-[56px] h-[56px] rounded-full-2 bg-plasma-violet flex items-center justify-center shrink-0 shadow-sm mb-2">
+                          <span className="text-snow-white font-bold text-subheading">{student.avatar_initials || "U"}</span>
+                        </div>
+                        <div className="w-full mb-5">
+                          <h4 className="text-midnight-ink font-bold text-[18px] mb-1">{student.name}</h4>
+                          <p className="text-pale-stone text-[14px] leading-[1.4] px-2">{student.status_prompt}</p>
+                        </div>
+                        <button className="w-full bg-snow-white text-plasma-violet border border-soft-lavender/40 px-5 py-3.5 rounded-full-2 text-[15px] font-bold shadow-sm hover:bg-canvas-ice transition-colors">
+                          Connect
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </div>
+              )}
 
-                <div className="bg-canvas-ice/50 rounded-2xl px-5 py-4 mb-8 w-full text-center">
-                  <p className="text-midnight-ink text-body leading-relaxed">
-                    <span className="font-bold">{match.name}</span> is also at{" "}
-                    <span className="font-bold">{landmark}</span>: "{match.status_prompt}"
-                  </p>
-                </div>
-
-                <button className="w-full bg-plasma-violet hover:opacity-90 text-snow-white rounded-full-2 py-4 font-bold text-body flex items-center justify-center gap-2.5 transition-all duration-200 shadow-xl active:scale-[0.98] focus:outline-none mb-4">
-                  <UserPlus size={20} />
-                  Connect with {match.name.split(" ")[0]}
+              {!match && (
+                <button onClick={handleClose} className="w-full mt-6 bg-transparent hover:bg-canvas-ice text-pale-stone hover:text-midnight-ink rounded-full-2 py-3.5 text-body font-bold transition-all duration-200 focus:outline-none">
+                  Close
                 </button>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center mb-10 mt-4">
-                <div className="w-12 h-12 rounded-full bg-canvas-ice flex items-center justify-center mb-5">
-                  <Users size={22} className="text-midnight-ink/60" />
-                </div>
-                <h2 className="text-midnight-ink text-[36px] font-bold mb-2 text-center tracking-tight leading-none">No exact matches</h2>
-                <p className="text-pale-stone text-[15px] text-center">No exact matches at this moment for your prompt.</p>
-              </div>
-            )}
-
-            {/* Others Available Nearby */}
-            {fetchedStudents.filter(s => !match || s.id !== match.id).length > 0 && (
-              <div className="w-full">
-                <div className="w-full h-px bg-canvas-ice mb-6"></div>
-                <div className="flex items-center justify-center gap-3 mb-6">
-                  <div className="w-1.5 h-1.5 rounded-full bg-soft-lavender/60"></div>
-                  <h3 className="text-midnight-ink text-[11px] font-bold uppercase tracking-[0.15em] text-center">Others Available Nearby</h3>
-                  <div className="w-1.5 h-1.5 rounded-full bg-soft-lavender/60"></div>
-                </div>
-                <div className="flex flex-col gap-4 pb-2">
-                  {fetchedStudents.filter(s => !match || s.id !== match.id).map(student => (
-                    <div key={student.id} className="bg-[#fcfbfe] border border-soft-lavender/30 rounded-[28px] p-6 flex flex-col items-center text-center shadow-[0_2px_12px_-4px_rgba(69,65,254,0.08)]">
-                      <div className="w-[56px] h-[56px] rounded-full-2 bg-plasma-violet flex items-center justify-center shrink-0 shadow-sm mb-2">
-                        <span className="text-snow-white font-bold text-subheading">{student.avatar_initials || "U"}</span>
-                      </div>
-                      <div className="w-full mb-5">
-                        <h4 className="text-midnight-ink font-bold text-[18px] mb-1">{student.name}</h4>
-                        <p className="text-pale-stone text-[14px] leading-[1.4] px-2">{student.status_prompt}</p>
-                      </div>
-                      <button className="w-full bg-snow-white text-plasma-violet border border-soft-lavender/40 px-5 py-3.5 rounded-full-2 text-[15px] font-bold shadow-sm hover:bg-canvas-ice transition-colors">
-                        Connect
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {!match && (
-              <button onClick={handleClose} className="w-full mt-6 bg-transparent hover:bg-canvas-ice text-pale-stone hover:text-midnight-ink rounded-full-2 py-3.5 text-body font-bold transition-all duration-200 focus:outline-none">
-                Close
-              </button>
-            )}
-            {match && (
-              <button onClick={handleClose} className="w-full bg-transparent hover:bg-canvas-ice text-pale-stone hover:text-midnight-ink rounded-full-2 py-3.5 text-body font-bold transition-all duration-200 focus:outline-none">
-                Skip for now
-              </button>
-            )}
+              )}
+              {match && (
+                <button onClick={handleClose} className="w-full bg-transparent hover:bg-canvas-ice text-pale-stone hover:text-midnight-ink rounded-full-2 py-3.5 text-body font-bold transition-all duration-200 focus:outline-none">
+                  Skip for now
+                </button>
+              )}
             </div>
           </div>
         </div>
